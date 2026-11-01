@@ -1,0 +1,58 @@
+INTRODUCTION                                           *gvimsettings.vim*
+                                                        _                   ~
+                                                 __   _(_)_ __ ___          ~
+                                                 \ \ / / | '_ ` _ \ _____   ~
+                                                  \ V /| | | | | | |_____|  ~
+                                                   \_/ |_|_| |_| |_|        ~
+                                                                            ~
+                           _                    _   _   _                   ~
+                __ ___   _(_)_ __ ___  ___  ___| |_| |_(_)_ __   __ _ ___   ~
+               / _` \ \ / / | '_ ` _ \/ __|/ _ \ __| __| | '_ \ / _` / __|  ~
+              | (_| |\ V /| | | | | | \__ \  __/ |_| |_| | | | | (_| \__ \  ~
+               \__, | \_/ |_|_| |_| |_|___/\___|\__|\__|_|_| |_|\__, |___/  ~
+               |___/                                            |___/       ~
+                                                                            ~
+              GVim settings for Vim editor          by @diacus
+
+This plugin configures the aspects of the editor that only make sense
+inside the graphical environment: the widgets shown around the text area
+and the initial window size.  It has no mappings, no commands and no
+global variables.
+
+==============================================================================
+CONTENTS                                          *gvimsettings-contents*
+
+  Options ..................................... |gvimsettings-options|
+  Window size ............................ |gvimsettings-window-size|
+==============================================================================
+
+OPTIONS                                          *gvimsettings-options*
+
+The GUI chrome is reduced to the essentials: >
+    set guioptions=aegit
+<
+That is, 'a', the selection is global, 'e', tab pages in their own row,
+'g', a gutter for greyed icons, 'i', an icon in the window manager, and
+'t', tear-off menus.
+
+WINDOW SIZE                                  *gvimsettings-window-size*
+
+The editor window is sized around the text area, based on 'textwidth'
+(or 80 columns if 'textwidth' is off) plus 'numberwidth' if 'number' is
+turned on; the height is fixed to 50 lines: >
+
+    let txt_width = &textwidth > 0 ? &textwidth : 80
+    let num_width = &number == 1 ? &numberwidth : 0
+    let &columns  = num_width + txt_width
+    let &lines    = 50
+<
+
+This is meant to be plugged only when the GUI is running, see the
+boilerplate in |settings-bootstrap|: >
+
+    if has('gui_running')
+      Plug 'diacus/vim-gvimsettings'
+    endif
+<
+
+ vim:tw=78:ts=8:ft=help:norl:
